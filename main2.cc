@@ -25,8 +25,8 @@ using namespace std;
 
 int main() 
 {	
-	dlist<Swatch> swatches;
-	dlist<Swatch>::iterator it; 
+	dList<Swatch> swatches;
+	dList<Swatch>::iterator it; 
 	ifstream fin; 
 	fin.open("swatches.txt"); 
 	if (fin.fail())
