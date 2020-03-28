@@ -17,11 +17,14 @@ class node_iterator {
         friend class dList<T>;
         node_iterator (dnode<T>* pos = NULL) {spot = pos;}
 
+        //for compareing two iterators
         bool operator != (const node_iterator other) const {return other.spot != spot;}
         bool operator == (const node_iterator other) const {return other.spot == spot;}
 
+        //return the data the iterator holds
         T operator *() const {return spot -> data();}
 
+        //move the iterator forwards or backwards through the list
         node_iterator operator ++() {spot = spot -> next(); return *this;}
         node_iterator operator ++(int) {node_iterator original(spot); spot = spot -> next(); return original;}
 

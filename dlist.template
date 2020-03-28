@@ -38,7 +38,7 @@ dList<T>::~dList() {
         head = head -> next();
         delete temp;
     }
-    delete tail;
+    tail = NULL;
 }
 
 
@@ -58,6 +58,9 @@ dList<T> dList<T>::operator =(const dList<T> cp) {
         nodecount = 0;
     }
     else {
+        //have to do some special cases just in case the two lists aren't the same size
+
+        //if they actually are the same size
         if (cp.nodecount == nodecount) {
             dnode<T>* cursor = head;
             dnode<T>* cpCur = cp.head;
@@ -67,6 +70,8 @@ dList<T> dList<T>::operator =(const dList<T> cp) {
                 cursor = cursor -> next();
             }
         }
+
+        //if the second is smaller
         else if (cp.nodecount < nodecount) {
 
             while (nodecount != cp.nodecount) {
@@ -84,6 +89,8 @@ dList<T> dList<T>::operator =(const dList<T> cp) {
                 cursor = cursor -> next();
             }
         }
+
+        //if the second is larger
         else if (cp.nodecount > nodecount) {
             dnode<T>* cursor = head;
             dnode<T>* cpCur = cp.head;
@@ -100,10 +107,12 @@ dList<T> dList<T>::operator =(const dList<T> cp) {
             nodecount = cp.nodecount;
         }
     }
+    //end of all if-elses
     return *this;
 }
 
-
+//all of the insert and remove functions check for multiple cases in order to keep the list in order
+//regardless of the iterator's position when the function is run
 template <class T>
 void dList<T>::front_insert (const T& item) {
     if (head == NULL) {
@@ -192,6 +201,7 @@ void dList<T>::reverse_show() const {
     }
 }
 
+//similar to the other functions, but uses the iterators to insert and remove at specific positions
 template <class T>
 void dList<T>::insert_before(iterator position, T item) {
     if (head == NULL) {
