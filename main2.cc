@@ -65,7 +65,7 @@ int main()
 	}
 	fin.close(); 
 
-	dlist<Swatch> copy(swatches); // make a copy
+	dList<Swatch> copy(swatches); // make a copy
 	
 	// remove the front, back, and centermost swatch from the copy
 	copy.front_remove(); 
@@ -79,7 +79,7 @@ int main()
 	
 	
 	// output the original list frontwards
-	for (dlist<Swatch>::iterator i=swatches.begin(); i != swatches.end(); ++i)
+	for (dList<Swatch>::iterator i=swatches.begin(); i != swatches.end(); ++i)
 	{
 		cout << *i << endl; 
 	}
@@ -87,7 +87,7 @@ int main()
 	cout << endl << endl; // some space
 	
 	// output the copy frontwards
-	for (dlist<Swatch>::iterator i=copy.begin(); i != copy.end(); ++i)
+	for (dList<Swatch>::iterator i=copy.begin(); i != copy.end(); ++i)
 	{
 		cout << *i << endl; 
 	}
@@ -95,7 +95,7 @@ int main()
 	cout << endl << endl; // some space
 
 	// output the original backwards
-	for (dlist<Swatch>::iterator i=swatches.r_begin(); i != swatches.r_end(); --i)
+	for (dList<Swatch>::iterator i=swatches.r_begin(); i != swatches.r_end(); --i)
 	{
 		cout << *i << endl; 
 	}
@@ -118,7 +118,7 @@ int main()
 	cout << endl << endl; // some space
 
 	// output the copy backwards
-	for (dlist<Swatch>::iterator i=copy.r_begin(); i != copy.r_end(); --i)
+	for (dList<Swatch>::iterator i=copy.r_begin(); i != copy.r_end(); --i)
 	{
 		cout << *i << endl; 
 	}

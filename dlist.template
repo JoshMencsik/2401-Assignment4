@@ -25,6 +25,7 @@ dList<T>::dList(const dList<T>& cp) {
             tail = tail -> next();
             cursor = cursor -> next();
         }
+        nodecount = cp.nodecount;
     }
 }
 
@@ -43,21 +44,63 @@ dList<T>::~dList() {
 
 template<class T>
 dList<T> dList<T>::operator =(const dList<T> cp) {
-    if (cp.head == NULL) {
-        ~dList<T>();
+    if (&cp == this) {
+        return *this;
+    }
+    else if (cp.head == NULL) {
+        dnode<T>* cursor = head;
+        while (cursor != NULL) {
+            head = cursor -> next();
+            delete cursor;
+            cursor = head;
+        }
         head = tail = NULL;
+        nodecount = 0;
     }
     else {
-        ~dList<T>();
-        dnode<T>* cursor = cp.head;
-        head = tail = new dnode<T>(cursor -> data());
-        cursor = cursor -> next();
-        while (cursor != NULL) {
-            tail -> setNext(cursor -> data(), tail);
-            tail = tail -> next();
-            cursor = cursor -> next();
+        if (cp.nodecount == nodecount) {
+            dnode<T>* cursor = head;
+            dnode<T>* cpCur = cp.head;
+            while (cursor != NULL) {
+                cursor -> setData(cpCur -> data());
+                cpCur = cpCur -> next();
+                cursor = cursor -> next();
+            }
+        }
+        else if (cp.nodecount < nodecount) {
+
+            while (nodecount != cp.nodecount) {
+                tail = tail -> previous();
+                delete tail -> next();
+                nodecount--;
+            }
+
+            tail -> setNext(NULL);
+            dnode<T>* cursor = head;
+            dnode<T>* cpCur = cp.head;
+            while (cursor != NULL) {
+                cursor -> setData(cpCur -> data());
+                cpCur = cpCur -> next();
+                cursor = cursor -> next();
+            }
+        }
+        else if (cp.nodecount > nodecount) {
+            dnode<T>* cursor = head;
+            dnode<T>* cpCur = cp.head;
+            while (cursor != NULL) {
+                cursor -> setData(cpCur -> data());
+                cpCur = cpCur -> next();
+                cursor = cursor -> next();
+            }
+            while (cpCur != NULL) {
+                tail -> setNext(new dnode<T>(cpCur -> data(), tail));
+                tail = tail -> next();
+                cpCur = cpCur -> next();
+            }
+            nodecount = cp.nodecount;
         }
     }
+    return *this;
 }
 
 
@@ -70,6 +113,7 @@ void dList<T>::front_insert (const T& item) {
         head = new dnode<T>(item, NULL, head);
         head -> next() -> setPrevious(head);
     }
+    nodecount++;
 }
 
 template <class T>
@@ -81,6 +125,7 @@ void dList<T>::rear_insert (const T& item) {
         tail -> setNext(new dnode<T>(item,tail));
         tail = tail -> next();
     }
+    nodecount++;
 }
 
 template <class T>
@@ -98,6 +143,7 @@ void dList<T>::front_remove() {
         head -> setPrevious(NULL);
         delete temp;
     }
+    nodecount--;
 }
 
 template <class T>
@@ -115,6 +161,7 @@ void dList<T>::rear_remove() {
         tail -> setNext(NULL);
         delete temp;
     }
+    nodecount--;
 }
 
 template <class T>
@@ -143,4 +190,52 @@ void dList<T>::reverse_show() const {
         cout << cursor -> data() << endl;
         cursor = cursor -> previous();
     }
+}
+
+template <class T>
+void dList<T>::insert_before(iterator position, T item) {
+    if (head == NULL) {
+        head = tail = new dnode<T>(item);
+    }
+    else if (position == begin()) {
+        head = new dnode<T>(item, NULL, head);
+        position.spot -> setPrevious(head);
+        position.spot = position.spot -> previous();
+    }
+    else {
+        dnode<T>* temp = position.spot -> previous();
+        temp -> setNext(new dnode<T>(item, temp, position.spot));
+        temp = temp -> next();
+        position.spot -> setPrevious(temp);
+    }
+    nodecount++;
+}
+
+template <class T>
+void dList<T>::insert_after(iterator position, T item) {
+    if (head == NULL) {
+        head = tail = new dnode<T>(item);
+    }
+    else if (position.spot == tail) {
+        tail -> setNext(new dnode<T> (item, tail)); 
+        tail = tail -> next();
+    }
+    else {
+        dnode<T>* temp = position.spot -> next();
+        position.spot -> setNext(new dnode<T>(item, position.spot, temp));
+        temp -> setPrevious(position.spot -> next());
+    }
+    nodecount++;
+}
+
+template <class T>
+void dList<T>::remove(iterator position) {
+    dnode<T>* cursor = head;
+    while (cursor != position.spot) {
+        cursor = cursor -> next();
+    }
+    position--;
+    position.spot -> setNext(cursor -> next());
+    cursor -> next() -> setPrevious(position.spot);
+    delete cursor;
 }

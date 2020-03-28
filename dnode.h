@@ -21,7 +21,7 @@ class dnode {
 
         void setNext(dnode* t) {nextLink = t;}
         void setPrevious(dnode* pre) {previousLink = pre;}
-        void setData(T d) {dataField = d;}
+        void setData(T& d) {dataField = d;}
 
     private:
         dnode* previousLink;

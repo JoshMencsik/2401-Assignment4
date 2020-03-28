@@ -43,20 +43,19 @@ int main(){
    cout<<endl<<endl;
 
 // declaring an iterator and using it to traverse list frontwards
-/*
-   dlist<int>::iterator it1;
+
+   dList<int>::iterator it1;
    for(it1=lis1.begin(); it1 != lis1.end(); ++it1)
 	cout<<*it1<<endl;
    cout<<endl<<endl;
-*/
 // using iterator to traverse list backwards
-/*
+
    for(it1 = lis1.r_begin(); it1 != lis1.r_end(); --it1)
 	cout<<*it1<<endl;
    cout<<endl<<endl;
-*/
+
 // moving the iterator to the third element and putting 89 before that
-/*
+
    it1 = lis1.begin();
    for(int i = 0; i<3; ++it1,++i)
 	;
@@ -68,9 +67,9 @@ int main(){
    for(it1 = lis1.r_begin(); it1 != lis1.r_end(); --it1)
         cout<<*it1<<endl;
    cout<<endl<<endl;
-*/
+
 // traversing the second list from the rear and putting 256 in middle
-/*
+
    tmp = 256;
    it1=lis2.r_begin();
    for(int i = 0; i<lis2.size()/2; --it1,++i)
@@ -82,11 +81,11 @@ int main(){
    for(it1 = lis2.r_begin(); it1 != lis2.r_end(); --it1)
         cout<<*it1<<endl;
    cout<<endl<<endl;
-/*
+
 // testing copy constructor and assignment operator
-/*
+
 {
-   dlist<int> copy(lis1);
+   dList<int> copy(lis1);
    lis1 = lis2;
    for(it1=lis1.begin(); it1 != lis1.end(); ++it1)
         cout<<*it1<<endl;
@@ -101,16 +100,16 @@ int main(){
         cout<<*it1<<endl;
    cout<<endl<<endl;
 } // copy has been destroyed
-*/
+
 // finding out if the list still works after the copy is destroyed
-/*
+
    for(it1=lis1.begin(); it1 != lis1.end(); ++it1)
         cout<<*it1<<endl;
    cout<<endl<<endl;
    for(it1 = lis1.r_begin(); it1 != lis1.r_end(); --it1)
         cout<<*it1<<endl;
    cout<<endl<<endl;
-*/
+
 
 return 0;
 }
